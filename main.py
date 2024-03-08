@@ -35,9 +35,14 @@ while True:
 
         if True in matches:
             first_match_index = matches.index(True)
-            name = known_names[first_match_index]
             face_distances = face_recognition.face_distance(known_faces, face_encoding)
             percentage_match = (1 - face_distances[first_match_index]) * 100
+
+            if percentage_match > 70:
+                name = known_names[first_match_index]
+                # Additional information about the match
+                match_info = f"Matched with {name} ({percentage_match:.2f}%)"
+                print(match_info)
 
         # Step 6: Display the results on the frame
         cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
